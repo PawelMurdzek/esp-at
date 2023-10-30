@@ -31,6 +31,7 @@
 #define CONFIG_AT_ETH_MDIO_GPIO        18
 #define CONFIG_AT_ETH_PHY_RST_GPIO     5
 #define CONFIG_AT_ETH_PHY_ADDR         1
+#define CONFIG_PHY_IP101               1
 
 bool esp_at_get_eth_default_config(esp_eth_config_t* config)
 {
