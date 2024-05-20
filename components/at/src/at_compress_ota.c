@@ -164,7 +164,7 @@ esp_err_t at_compress_ota_write(at_compress_ota_handle_t *handle, const void *da
         return ESP_FAIL;
     }
 
-    if (size > 0) {//@zmiana
+    if (size < 0) {
         return ESP_OK;
     }
 
