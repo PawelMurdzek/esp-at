@@ -71,7 +71,7 @@ config AT_NET_COMMAND_SUPPORT
 
 config AT_SOCKET_MAX_CONN_NUM
     int "AT socket maximum connection number"
-    default 5
+    default 2
     depends on AT_NET_COMMAND_SUPPORT
 
 menu "AT ssl client authentication method"
@@ -145,14 +145,14 @@ config AT_HTTP_COMMAND_SUPPORT
 
 config AT_HTTP_TX_BUFFER_SIZE
     int "Default HTTP TX buffer size"
-    default 2048
+    default 1024
     depends on AT_HTTP_COMMAND_SUPPORT
     help
         This buffer size using for transmit HTTP request
 
 config AT_HTTP_RX_BUFFER_SIZE
     int "Default HTTP RX buffer size"
-    default 2048
+    default 1024
     depends on AT_HTTP_COMMAND_SUPPORT
     help
         This buffer size using for receive HTTP response
@@ -164,18 +164,18 @@ config AT_WS_COMMAND_SUPPORT
 
 config AT_BLE_COMMAND_SUPPORT
     bool "AT ble command support."
-    default "y" if !IDF_TARGET_ESP32C2
+    default "n" if !IDF_TARGET_ESP32C2
     default "n" if IDF_TARGET_ESP32C2
     depends on AT_ENABLE && BT_ENABLED
 
 config AT_BLE_HID_COMMAND_SUPPORT
     bool "AT ble hid command support."
-    default "y"
+    default "n"
     depends on AT_ENABLE && BT_ENABLED && !IDF_TARGET_ESP32C2 && !IDF_TARGET_ESP32C6
 
 config AT_BLUFI_COMMAND_SUPPORT
     bool "AT blufi command support."
-    default "y"
+    default "n"
     depends on AT_ENABLE && BT_ENABLED && (!IDF_TARGET_ESP32C2 || (BT_NIMBLE_ENABLED && BT_NIMBLE_BLUFI_ENABLE && BT_NIMBLE_EXT_ADV))
 
 config AT_BT_COMMAND_SUPPORT
@@ -187,7 +187,7 @@ config AT_BT_COMMAND_SUPPORT
 
 config AT_BT_SPP_COMMAND_SUPPORT
     bool "AT bt spp command support."
-    default "y"
+    default "n"
     select BT_SPP_ENABLED
     depends on AT_BT_COMMAND_SUPPORT
 
