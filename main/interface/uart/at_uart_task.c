@@ -412,7 +412,7 @@ static void at_uart_init(void)
     // set uart pins (-1: default pin)
     uart_set_pin(esp_at_uart_port, tx_pin, rx_pin, rts_pin, cts_pin);
     // install uart driver
-    uart_driver_install(esp_at_uart_port, 128, 32768, 30, &esp_at_uart_queue, 0);//default TX: 2048 RX: 8192// TESTED RX: 8192, 16384, 32768
+    uart_driver_install(esp_at_uart_port, 128, 16384, 30, &esp_at_uart_queue, 0);//default TX: 2048 RX: 8192// TESTED RX: 8192, 16384, 32768
     uart_intr_config(esp_at_uart_port, &intr_config);
 
     /**
