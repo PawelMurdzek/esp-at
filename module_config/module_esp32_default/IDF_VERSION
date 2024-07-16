@@ -4,4 +4,4 @@
 
 branch:my_branch
 commit:54631d4
-repository:https://github.com/PawelMurdzek/esp-idf.git
+repository:https://github.com/PawelMurdzek/esp-idf/tree/my_branch.git
