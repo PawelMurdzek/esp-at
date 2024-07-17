@@ -33,8 +33,9 @@ at_uart_port_pins_t g_uart_port_pin;
 static int32_t at_uart_write_data(uint8_t *data, int32_t len)
 {
     uint32_t length = 0;
-
+    uart_wait_tx_done(g_at_cmd_port,portMAX_DELAY);
     length = uart_write_bytes(g_at_cmd_port, (char *)data, len);
+    uart_wait_tx_done(g_at_cmd_port,portMAX_DELAY);
     return length;
 }
 
