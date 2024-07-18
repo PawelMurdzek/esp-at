@@ -30,44 +30,53 @@ static QueueHandle_t s_at_uart_queue = NULL;
 uint8_t g_at_cmd_port = UART_NUM_1;
 at_uart_port_pins_t g_uart_port_pin;
 
-#define BUFFER_SIZE 1024
-#define CHUNK_SIZE 128
+// #define BUFFER_SIZE 1024
+// #define CHUNK_SIZE 128
 
-static uint8_t buffer[BUFFER_SIZE];
-static uint32_t buffer_len = 0;
+// static uint8_t buffer[BUFFER_SIZE];
+// static uint32_t buffer_len = 0;
 
-static void send_buffer()
-{
-    uint32_t length = 0;
-    while (buffer_len >= CHUNK_SIZE)
-    {
-        uart_wait_tx_done(g_at_cmd_port, portMAX_DELAY);
-        length = uart_write_bytes(g_at_cmd_port, (char *)buffer, CHUNK_SIZE);
-        uart_wait_tx_done(g_at_cmd_port, portMAX_DELAY);
-        buffer_len -= CHUNK_SIZE;
-        memmove(buffer, buffer + CHUNK_SIZE, buffer_len);
-    }
-}
+// static void send_buffer()
+// {
+//     uint32_t length = 0;
+//     while (buffer_len >= CHUNK_SIZE)
+//     {
+//         uart_wait_tx_done(g_at_cmd_port, portMAX_DELAY);
+//         length = uart_write_bytes(g_at_cmd_port, (char *)buffer, CHUNK_SIZE);
+//         uart_wait_tx_done(g_at_cmd_port, portMAX_DELAY);
+//         buffer_len -= CHUNK_SIZE;
+//         memmove(buffer, buffer + CHUNK_SIZE, buffer_len);
+//     }
+// }
+
+// static int32_t at_uart_write_data(uint8_t *data, int32_t len)
+// {
+//     uint32_t length = 0;
+
+//     // Copy data to buffer
+//     while (len > 0)
+//     {
+//         uint32_t space_in_buffer = BUFFER_SIZE - buffer_len;
+//         uint32_t to_copy = len < space_in_buffer ? len : space_in_buffer;
+
+//         memcpy(buffer + buffer_len, data, to_copy);
+//         buffer_len += to_copy;
+//         data += to_copy;
+//         len -= to_copy;
+
+//         // Send buffer if it's full
+//         send_buffer();
+//     }
+
+//     return length;
+// }
 
 static int32_t at_uart_write_data(uint8_t *data, int32_t len)
 {
     uint32_t length = 0;
-
-    // Copy data to buffer
-    while (len > 0)
-    {
-        uint32_t space_in_buffer = BUFFER_SIZE - buffer_len;
-        uint32_t to_copy = len < space_in_buffer ? len : space_in_buffer;
-
-        memcpy(buffer + buffer_len, data, to_copy);
-        buffer_len += to_copy;
-        data += to_copy;
-        len -= to_copy;
-
-        // Send buffer if it's full
-        send_buffer();
-    }
-
+    
+    length = uart_write_bytes(g_at_cmd_port, (char *)data, len);
+    
     return length;
 }
 
